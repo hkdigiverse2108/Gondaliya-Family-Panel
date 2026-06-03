@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: port,
+    },
+    preview: {
+      port: port,
     }
   };
 })
