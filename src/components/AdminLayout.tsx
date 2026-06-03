@@ -14,6 +14,7 @@ import {
 import { LayoutDashboard, Users, MapPin, KeyRound, LogOut, ChevronRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useThemeMode } from '../context/ThemeContext';
+import FamilyLogo from './FamilyLogo';
 
 const DRAWER_WIDTH = 255;
 const COLLAPSED_WIDTH = 72;
@@ -49,32 +50,28 @@ export const AdminLayout: React.FC = () => {
         borderBottom: `1px solid ${theme.palette.divider}`,
         justifyContent: collapsed && !isMobile ? 'center' : 'space-between',
         background: mode === 'light'
-          ? 'linear-gradient(135deg, #F0FDFC 0%, #CCFBF1 100%)'
-          : 'linear-gradient(135deg, #071727 0%, #050F1C 100%)'
+          ? 'linear-gradient(135deg, #FFFFFF 0%, #F5F7FB 100%)'
+          : 'linear-gradient(135deg, #111827 0%, #0B0F19 100%)'
       }}>
         {(!collapsed || isMobile) && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Avatar sx={{
-              bgcolor: 'primary.main',
-              background: 'linear-gradient(135deg, #0D9488, #14B8A6)',
-              width: 36, height: 36, fontWeight: 800, fontSize: '0.85rem'
-            }}>
-              GF
-            </Avatar>
+            <Box sx={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <FamilyLogo size={38} variant="tree-only" />
+            </Box>
             <Box>
               <Typography sx={{ fontWeight: 800, fontSize: '0.95rem', lineHeight: 1.1, color: 'primary.main' }}>
-                Gondaliya
+                ગોંડલીયા પરિવાર
               </Typography>
-              <Typography variant='caption' sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                Family Directory
+              <Typography variant='caption' sx={{ color: 'text.secondary', fontWeight: 700, fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Family Registry
               </Typography>
             </Box>
           </Box>
         )}
         {collapsed && !isMobile && (
-          <Avatar sx={{ bgcolor: 'primary.main', width: 36, height: 36, fontWeight: 800, fontSize: '0.85rem' }}>
-            GF
-          </Avatar>
+          <Box sx={{ width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <FamilyLogo size={34} variant="tree-only" />
+          </Box>
         )}
         {!isMobile && (
           <Tooltip title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} placement='right'>
@@ -106,10 +103,10 @@ export const AdminLayout: React.FC = () => {
                     justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
                     minHeight: 46,
                     backgroundColor: isActive
-                      ? (mode === 'light' ? 'rgba(13,148,136,0.1)' : 'rgba(45,212,191,0.12)')
+                      ? (mode === 'light' ? 'rgba(46,49,146,0.08)' : 'rgba(99,102,241,0.15)')
                       : 'transparent',
                     '&:hover': {
-                      backgroundColor: mode === 'light' ? 'rgba(13,148,136,0.07)' : 'rgba(45,212,191,0.08)',
+                      backgroundColor: mode === 'light' ? 'rgba(46,49,146,0.04)' : 'rgba(99,102,241,0.08)',
                     },
                     position: 'relative',
                     overflow: 'hidden',
@@ -117,9 +114,9 @@ export const AdminLayout: React.FC = () => {
                       content: '""',
                       position: 'absolute',
                       left: 0, top: '20%', bottom: '20%',
-                      width: 3,
+                      width: 4,
                       borderRadius: '0 4px 4px 0',
-                      backgroundColor: 'primary.main',
+                      backgroundColor: 'secondary.main', // Glowing Emerald Green indicator!
                     } : {},
                   }}
                 >
@@ -154,7 +151,7 @@ export const AdminLayout: React.FC = () => {
         justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
       }}>
         <Avatar sx={{
-          bgcolor: mode === 'light' ? 'rgba(13,148,136,0.15)' : 'rgba(45,212,191,0.15)',
+          bgcolor: mode === 'light' ? 'rgba(46,49,146,0.12)' : 'rgba(99,102,241,0.18)',
           color: 'primary.main', width: 36, height: 36, fontWeight: 800, fontSize: '0.8rem'
         }}>
           AD
@@ -205,7 +202,7 @@ export const AdminLayout: React.FC = () => {
               <IconButton onClick={toggleTheme} size='small' sx={{
                 border: `1px solid ${theme.palette.divider}`,
                 borderRadius: 2, p: 0.8,
-                color: mode === 'dark' ? '#FBBF24' : '#0F766E',
+                color: mode === 'dark' ? '#FBBF24' : 'primary.main',
               }}>
                 {mode === 'dark' ? <SunIcon fontSize='small' /> : <MoonIcon fontSize='small' />}
               </IconButton>
@@ -271,7 +268,7 @@ export const AdminLayout: React.FC = () => {
             &copy; {new Date().getFullYear()} Gondaliya Family Directory. All rights reserved.
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
-            <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: '#10B981', boxShadow: '0 0 6px #10B981' }} />
+            <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: 'secondary.main', boxShadow: '0 0 6px ' + theme.palette.secondary.main }} />
             <Typography variant='caption' color='text.secondary' sx={{ fontWeight: 600 }}>System Online</Typography>
           </Box>
         </Box>

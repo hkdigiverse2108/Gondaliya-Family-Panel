@@ -26,31 +26,31 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     palette: {
       mode,
       primary: {
-        main:  mode === 'light' ? '#0D9488' : '#2DD4BF',   // Teal
-        light: mode === 'light' ? '#14B8A6' : '#5EEAD4',
-        dark:  mode === 'light' ? '#0F766E' : '#0D9488',
+        main:  mode === 'light' ? '#2E3192' : '#6366F1',   // Gondaliya Navy / Brand Blue
+        light: mode === 'light' ? '#4F52C9' : '#8B5CF6',
+        dark:  mode === 'light' ? '#1B1C63' : '#4F46E5',
         contrastText: '#ffffff',
       },
       secondary: {
-        main: mode === 'light' ? '#D97706' : '#FBBF24',    // Amber
-        light: mode === 'light' ? '#F59E0B' : '#FCD34D',
-        dark:  mode === 'light' ? '#B45309' : '#D97706',
+        main: mode === 'light' ? '#129B63' : '#1EC47D',    // Gondaliya Emerald Green / Brand Green
+        light: mode === 'light' ? '#1BC27F' : '#34D399',
+        dark:  mode === 'light' ? '#0B6A43' : '#059669',
         contrastText: '#ffffff',
       },
       error:   { main: '#EF4444' },
       warning: { main: '#F59E0B' },
-      info:    { main: '#06B6D4' },
+      info:    { main: '#3B82F6' },
       success: { main: '#10B981' },
       background: {
-        default: mode === 'light' ? '#F0FDFC' : '#040D18',
-        paper:   mode === 'light' ? '#FFFFFF' : '#071727',
+        default: mode === 'light' ? '#F5F7FB' : '#0B0F19',
+        paper:   mode === 'light' ? '#FFFFFF' : '#111827',
       },
       text: {
-        primary:   mode === 'light' ? '#134E4A' : '#CCFBF1',
-        secondary: mode === 'light' ? '#0F766E' : '#5EEAD4',
-        disabled:  mode === 'light' ? '#99F6E4' : '#1E3A4C',
+        primary:   mode === 'light' ? '#1E293B' : '#F8FAFC',
+        secondary: mode === 'light' ? '#475569' : '#94A3B8',
+        disabled:  mode === 'light' ? '#94A3B8' : '#475569',
       },
-      divider: mode === 'light' ? '#CCFBF1' : '#0D2D40',
+      divider: mode === 'light' ? '#E2E8F0' : '#1F2937',
     },
     typography: {
       fontFamily: '"Plus Jakarta Sans", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -71,7 +71,7 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           '@import': 'url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap")',
           body: {
             scrollbarWidth: 'thin',
-            scrollbarColor: mode === 'light' ? '#99F6E4 transparent' : '#0D2D40 transparent',
+            scrollbarColor: mode === 'light' ? '#CBD5E1 transparent' : '#374151 transparent',
           },
         },
       },
@@ -80,15 +80,15 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           root: {
             backgroundImage: 'none',
             borderRadius: 14,
-            border: `1px solid ${mode === 'light' ? '#CCFBF1' : '#0D2D40'}`,
+            border: `1px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
             boxShadow: mode === 'light'
-              ? '0 1px 3px 0 rgba(13,148,136,0.07), 0 1px 2px -1px rgba(13,148,136,0.07)'
-              : '0 4px 24px 0 rgba(0,0,0,0.45)',
+              ? '0 1px 3px 0 rgba(46,49,146,0.04), 0 1px 2px -1px rgba(46,49,146,0.04)'
+              : '0 4px 24px 0 rgba(0,0,0,0.55)',
             transition: 'box-shadow 0.25s ease, transform 0.25s ease',
             '&:hover': {
               boxShadow: mode === 'light'
-                ? '0 10px 25px -5px rgba(13,148,136,0.12)'
-                : '0 10px 30px 0 rgba(0,0,0,0.6)',
+                ? '0 10px 25px -5px rgba(46,49,146,0.08)'
+                : '0 10px 30px 0 rgba(0,0,0,0.7)',
             },
           },
         },
@@ -105,13 +105,13 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             '&:active': { transform: 'translateY(0px)' },
             '&.MuiButton-containedPrimary': {
               background: mode === 'light'
-                ? 'linear-gradient(135deg, #0D9488 0%, #0F766E 100%)'
-                : 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)',
-              color: mode === 'light' ? '#ffffff' : '#040D18',
+                ? 'linear-gradient(135deg, #2E3192 0%, #1B1C63 100%)'
+                : 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
+              color: '#ffffff',
               '&:hover': {
                 background: mode === 'light'
-                  ? 'linear-gradient(135deg, #0F766E 0%, #115E59 100%)'
-                  : 'linear-gradient(135deg, #5EEAD4 0%, #2DD4BF 100%)',
+                  ? 'linear-gradient(135deg, #1B1C63 0%, #0F1043 100%)'
+                  : 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%)',
               },
             },
           },
@@ -122,11 +122,11 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           root: {
             '& .MuiOutlinedInput-root': {
               borderRadius: 8,
-              backgroundColor: mode === 'light' ? '#F0FDFC' : '#0A1A28',
+              backgroundColor: mode === 'light' ? '#F8FAFC' : '#1F2937',
               transition: 'background 0.2s',
-              '& fieldset': { borderColor: mode === 'light' ? '#99F6E4' : '#0D2D40' },
-              '&:hover fieldset': { borderColor: mode === 'light' ? '#2DD4BF' : '#0D9488' },
-              '&.Mui-focused fieldset': { borderColor: mode === 'light' ? '#0D9488' : '#2DD4BF' },
+              '& fieldset': { borderColor: mode === 'light' ? '#E2E8F0' : '#1F2937' },
+              '&:hover fieldset': { borderColor: mode === 'light' ? '#4F52C9' : '#8B5CF6' },
+              '&.Mui-focused fieldset': { borderColor: mode === 'light' ? '#2E3192' : '#6366F1' },
             },
           },
         },
@@ -141,8 +141,8 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       MuiDrawer: {
         styleOverrides: {
           paper: {
-            backgroundColor: mode === 'light' ? '#FFFFFF' : '#050F1C',
-            borderRight: `1px solid ${mode === 'light' ? '#CCFBF1' : '#0D2D40'}`,
+            backgroundColor: mode === 'light' ? '#FFFFFF' : '#0B0F19',
+            borderRight: `1px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
           },
         },
       },
@@ -150,9 +150,9 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         styleOverrides: {
           root: {
             backgroundImage: 'none',
-            backgroundColor: mode === 'light' ? 'rgba(240,253,252,0.85)' : 'rgba(4,13,24,0.85)',
+            backgroundColor: mode === 'light' ? 'rgba(245,247,251,0.85)' : 'rgba(11,15,25,0.85)',
             backdropFilter: 'blur(12px)',
-            borderBottom: `1px solid ${mode === 'light' ? '#CCFBF1' : '#0D2D40'}`,
+            borderBottom: `1px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
             boxShadow: 'none',
           },
         },
@@ -161,13 +161,13 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         styleOverrides: {
           root: {
             '& .MuiTableCell-head': {
-              backgroundColor: mode === 'light' ? '#F0FDFC' : '#071727',
-              color: mode === 'light' ? '#0F766E' : '#2DD4BF',
+              backgroundColor: mode === 'light' ? '#F8FAFC' : '#1F2937',
+              color: mode === 'light' ? '#2E3192' : '#6366F1',
               fontWeight: 700,
               fontSize: '0.78rem',
               textTransform: 'uppercase',
               letterSpacing: 0.8,
-              borderBottom: `2px solid ${mode === 'light' ? '#99F6E4' : '#0D2D40'}`,
+              borderBottom: `2px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
             },
           },
         },
@@ -175,7 +175,7 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       MuiTableCell: {
         styleOverrides: {
           body: {
-            borderColor: mode === 'light' ? '#F0FDFC' : '#0A1A28',
+            borderColor: mode === 'light' ? '#E2E8F0' : '#1F2937',
             fontSize: '0.875rem',
           },
         },
@@ -184,7 +184,7 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         styleOverrides: {
           root: {
             '&:hover': {
-              backgroundColor: mode === 'light' ? '#F0FDFC' : '#0A1A28',
+              backgroundColor: mode === 'light' ? '#F1F5F9' : '#1F2937',
             },
           },
         },
@@ -209,16 +209,16 @@ export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           paper: {
             borderRadius: 16,
             backgroundImage: 'none',
-            backgroundColor: mode === 'light' ? '#FFFFFF' : '#071727',
-            border: `1px solid ${mode === 'light' ? '#CCFBF1' : '#0D2D40'}`,
+            backgroundColor: mode === 'light' ? '#FFFFFF' : '#111827',
+            border: `1px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
           },
         },
       },
       MuiTooltip: {
         styleOverrides: {
           tooltip: {
-            backgroundColor: mode === 'light' ? '#134E4A' : '#2DD4BF',
-            color: mode === 'light' ? '#CCFBF1' : '#040D18',
+            backgroundColor: mode === 'light' ? '#2E3192' : '#6366F1',
+            color: '#FFFFFF',
             fontWeight: 600,
             fontSize: '0.75rem',
             borderRadius: 6,

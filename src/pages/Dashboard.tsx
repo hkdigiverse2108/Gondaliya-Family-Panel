@@ -15,7 +15,8 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Chip
+  Chip,
+  useTheme
 } from '@mui/material';
 import { 
   Users as UsersIcon, 
@@ -45,6 +46,7 @@ import { useThemeMode } from '../context/ThemeContext';
 
 export const Dashboard: React.FC = () => {
   const { mode } = useThemeMode();
+  const theme = useTheme();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -59,7 +61,7 @@ export const Dashboard: React.FC = () => {
   const [houseTypeData, setHouseTypeData] = useState<any[]>([]);
   const [villageData, setVillageData] = useState<any[]>([]);
 
-  const COLORS = ['#6366F1', '#D97706', '#10B981', '#EC4899', '#8B5CF6', '#F59E0B', '#3B82F6', '#EF4444'];
+  const COLORS = ['#2E3192', '#129B63', '#4F52C9', '#10B981', '#3B82F6', '#F59E0B', '#6366F1', '#EC4899'];
 
   useEffect(() => {
     fetchDashboardData();
@@ -68,77 +70,17 @@ export const Dashboard: React.FC = () => {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      // Fetch users with a high limit to compute stats
-      const usersRes = await api.get('/user', { params: { limit: 10000 } });
-      const locationsRes = await api.get('/location', { params: { limit: 10000, activeFilter: 'all' } });
-
-      const users = usersRes.data?.data?.data || [];
-      const locations = locationsRes.data?.data?.data || [];
-
-      // Compute statistics
-      const totalMembers = users.length;
-      const activeMembers = users.filter((u: any) => u.isActive).length;
-      const totalVillages = locations.length;
-      const totalDistricts = Array.from(new Set(locations.map((l: any) => l.district))).length;
-
-      setStats({
-        totalMembers,
-        activeMembers,
-        totalVillages,
-        totalDistricts
-      });
-
-      // Recent users (limit to 5)
-      const sortedUsers = [...users]
-        .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 5);
-      setRecentUsers(sortedUsers);
-
-      // Aggregations
-      // 1. Blood Group distribution (including nested family members)
-      const bloodGroups: { [key: string]: number } = {};
-      users.forEach((u: any) => {
-        // Collect main user blood group
-        if (u.familyMembers && Array.isArray(u.familyMembers)) {
-          u.familyMembers.forEach((m: any) => {
-            if (m.bloodGroup) {
-              bloodGroups[m.bloodGroup] = (bloodGroups[m.bloodGroup] || 0) + 1;
-            }
-          });
-        }
-      });
-      const bloodGroupChart = Object.keys(bloodGroups).map(key => ({
-        name: key,
-        value: bloodGroups[key]
-      })).sort((a, b) => b.value - a.value);
-      setBloodGroupData(bloodGroupChart);
-
-      // 2. House Type distribution
-      const houseTypes: { [key: string]: number } = {};
-      users.forEach((u: any) => {
-        if (u.houseType) {
-          houseTypes[u.houseType] = (houseTypes[u.houseType] || 0) + 1;
-        }
-      });
-      const houseTypeChart = Object.keys(houseTypes).map(key => ({
-        name: key,
-        value: houseTypes[key]
-      }));
-      setHouseTypeData(houseTypeChart);
-
-      // 3. Top Villages count
-      const villages: { [key: string]: number } = {};
-      users.forEach((u: any) => {
-        if (u.village) {
-          villages[u.village] = (villages[u.village] || 0) + 1;
-        }
-      });
-      const villageChart = Object.keys(villages)
-        .map(key => ({ name: key, count: villages[key] }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 6);
-      setVillageData(villageChart);
-
+      const response = await api.get('/admin/dashboard');
+      const resData = response.data;
+      const isOk = resData?.statusCode === 200 || resData?.status === 200 || response.status === 200;
+      if (isOk) {
+        const payload = resData.data;
+        setStats(payload.stats || { totalMembers: 0, activeMembers: 0, totalVillages: 0, totalDistricts: 0 });
+        setRecentUsers(payload.recentUsers || []);
+        setBloodGroupData(payload.bloodGroupData || []);
+        setHouseTypeData(payload.houseTypeData || []);
+        setVillageData(payload.villageData || []);
+      }
     } catch (err: any) {
       console.error(err);
       toast.error('Failed to load dashboard statistics!');
@@ -160,19 +102,19 @@ export const Dashboard: React.FC = () => {
       title: 'Total Members', 
       value: stats.totalMembers, 
       icon: <UsersIcon size={24} />, 
-      color: '#6366F1',
+      color: mode === 'light' ? '#2E3192' : '#6366F1',
       bgGradient: mode === 'light' 
-        ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.02) 100%)'
-        : 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.05) 100%)'
+        ? 'linear-gradient(135deg, rgba(46, 49, 146, 0.08) 0%, rgba(46, 49, 146, 0.02) 100%)'
+        : 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.03) 100%)'
     },
     { 
       title: 'Active Accounts', 
       value: stats.activeMembers, 
       icon: <ActiveIcon size={24} />, 
-      color: '#10B981',
+      color: mode === 'light' ? '#129B63' : '#1EC47D',
       bgGradient: mode === 'light' 
-        ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.02) 100%)'
-        : 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%)'
+        ? 'linear-gradient(135deg, rgba(18, 155, 99, 0.08) 0%, rgba(18, 155, 99, 0.02) 100%)'
+        : 'linear-gradient(135deg, rgba(30, 196, 125, 0.15) 0%, rgba(30, 196, 125, 0.03) 100%)'
     },
     { 
       title: 'Master Villages', 
@@ -180,17 +122,17 @@ export const Dashboard: React.FC = () => {
       icon: <MapIcon size={24} />, 
       color: '#F59E0B',
       bgGradient: mode === 'light' 
-        ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.02) 100%)'
-        : 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%)'
+        ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.02) 100%)'
+        : 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.03) 100%)'
     },
     { 
       title: 'Total Districts', 
       value: stats.totalDistricts, 
       icon: <Activity size={24} />, 
-      color: '#EC4899',
+      color: '#3B82F6',
       bgGradient: mode === 'light' 
-        ? 'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0.02) 100%)'
-        : 'linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(236, 72, 153, 0.05) 100%)'
+        ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%)'
+        : 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.03) 100%)'
     },
   ];
 
@@ -289,7 +231,7 @@ export const Dashboard: React.FC = () => {
                           borderRadius: 8
                         }} 
                       />
-                      <Bar dataKey="count" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={38} />
+                      <Bar dataKey="count" fill={theme.palette.primary.main} radius={[6, 6, 0, 0]} barSize={38} />
                     </ReBarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -396,15 +338,17 @@ export const Dashboard: React.FC = () => {
                   <Table size="small">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Phone</TableCell>
-                        <TableCell>Village</TableCell>
-                        <TableCell>Status</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Sr. No.</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Phone</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Village</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Status</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {recentUsers.map((userItem) => (
+                      {recentUsers.map((userItem, index) => (
                         <TableRow key={userItem._id}>
+                          <TableCell sx={{ fontWeight: 600 }}>{index + 1}</TableCell>
                           <TableCell sx={{ fontWeight: 600 }}>
                             {`${userItem.firstName} ${userItem.lastName}`}
                           </TableCell>

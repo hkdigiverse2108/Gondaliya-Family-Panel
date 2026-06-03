@@ -50,7 +50,7 @@ export const Locations: React.FC = () => {
       };
       if (activeFilter !== 'all') params.activeFilter = activeFilter;
 
-      const response = await api.get('/location', { params });
+      const response = await api.get('/location/all', { params });
       const resData = response.data;
       const isOk = resData?.statusCode === 200 || resData?.status === 200 || response.status === 200;
       if (isOk) {
@@ -205,7 +205,7 @@ export const Locations: React.FC = () => {
       {/* ── Stat Cards ── */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
         {[
-          { label: 'Total', value: totalData, color: mode === 'light' ? '#0D9488' : '#2DD4BF', icon: <MapPin size={20} /> },
+          { label: 'Total', value: totalData, color: mode === 'light' ? '#2E3192' : '#6366F1', icon: <MapPin size={20} /> },
           { label: 'Active', value: activeCount, color: '#10B981', icon: <ToggleRight size={20} /> },
           { label: 'Inactive', value: inactiveCount, color: '#F59E0B', icon: <ToggleLeft size={20} /> },
         ].map((s) => (
@@ -280,6 +280,7 @@ export const Locations: React.FC = () => {
               <Table>
                 <TableHead>
                   <TableRow>
+                    <TableCell>Sr. No.</TableCell>
                     <TableCell><Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}><Navigation size={13} />Village</Box></TableCell>
                     <TableCell><Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}><Map size={13} />Taluka</Box></TableCell>
                     <TableCell><Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}><MapPin size={13} />District</Box></TableCell>
@@ -289,8 +290,11 @@ export const Locations: React.FC = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {locations.map((loc) => (
+                  {locations.map((loc, index) => (
                     <TableRow key={loc._id} hover>
+                      <TableCell sx={{ fontWeight: 600 }}>
+                        {(page - 1) * limit + index + 1}
+                      </TableCell>
                       <TableCell>
                         <Typography variant="body2" sx={{ fontWeight: 700 }}>{loc.village}</Typography>
                       </TableCell>
@@ -300,8 +304,8 @@ export const Locations: React.FC = () => {
                       <TableCell>
                         <Chip label={loc.district} size="small" sx={{
                           fontWeight: 600, fontSize: '0.72rem',
-                          bgcolor: mode === 'light' ? 'rgba(13,148,136,0.1)' : 'rgba(45,212,191,0.1)',
-                          color: mode === 'light' ? '#0D9488' : '#2DD4BF',
+                          bgcolor: mode === 'light' ? 'rgba(46,49,146,0.1)' : 'rgba(99,102,241,0.1)',
+                          color: mode === 'light' ? '#2E3192' : '#6366F1',
                         }} />
                       </TableCell>
                       <TableCell>
@@ -344,7 +348,7 @@ export const Locations: React.FC = () => {
             {/* Pagination */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 3, py: 2, borderTop: `1px solid`, borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary">
-                {locations.length} of {totalData} locations
+                Showing {locations.length} of {totalData} locations
               </Typography>
               <Pagination
                 count={totalPages}
@@ -358,8 +362,8 @@ export const Locations: React.FC = () => {
           </>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 10, gap: 2 }}>
-            <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(13,148,136,0.1)' : 'rgba(45,212,191,0.1)', width: 64, height: 64 }}>
-              <MapPin size={28} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />
+            <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(46,49,146,0.1)' : 'rgba(99,102,241,0.1)', width: 64, height: 64 }}>
+              <MapPin size={28} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />
             </Avatar>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>No Locations Found</Typography>
             <Typography variant="body2" color="text.secondary">Try different search terms or add the first location.</Typography>
@@ -372,8 +376,8 @@ export const Locations: React.FC = () => {
       <Dialog open={formOpen} onClose={() => setFormOpen(false)}>
         <DialogTitle sx={{ p: 3, pb: 1.5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(13,148,136,0.1)' : 'rgba(45,212,191,0.1)', width: 40, height: 40 }}>
-              {isEditMode ? <Edit2 size={18} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} /> : <Plus size={18} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />}
+            <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(46,49,146,0.1)' : 'rgba(99,102,241,0.1)', width: 40, height: 40 }}>
+              {isEditMode ? <Edit2 size={18} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} /> : <Plus size={18} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />}
             </Avatar>
             <Box>
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
@@ -393,7 +397,7 @@ export const Locations: React.FC = () => {
                 fullWidth label="Village Name" required
                 value={formData.village}
                 onChange={(e) => setFormData({ ...formData, village: e.target.value })}
-                slotProps={{ input: { startAdornment: <InputAdornment position="start"><Navigation size={15} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} /></InputAdornment> } }}
+                slotProps={{ input: { startAdornment: <InputAdornment position="start"><Navigation size={15} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} /></InputAdornment> } }}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box, Card, CardContent, Typography, TextField,
-  Button, InputAdornment, IconButton, CircularProgress, Avatar
+  Button, InputAdornment, IconButton, CircularProgress
 } from '@mui/material';
 import { Phone as PhoneIcon, Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
-import { ShieldCheck } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import { useThemeMode } from '../context/ThemeContext';
+import FamilyLogo from '../components/FamilyLogo';
 
 export const Login: React.FC = () => {
   const { login } = useAuth();
@@ -72,8 +72,8 @@ export const Login: React.FC = () => {
       justifyContent: 'center',
       p: 2,
       background: mode === 'light'
-        ? 'linear-gradient(135deg, #F0FDFC 0%, #CCFBF1 50%, #99F6E4 100%)'
-        : 'linear-gradient(135deg, #040D18 0%, #071727 50%, #0A1F30 100%)',
+        ? 'linear-gradient(135deg, #F5F7FB 0%, #E0E7FF 50%, #D1FAE5 100%)'
+        : 'linear-gradient(135deg, #0B0F19 0%, #171C35 50%, #0F2D24 100%)',
       position: 'relative',
       overflow: 'hidden',
       '&::before': {
@@ -83,8 +83,8 @@ export const Login: React.FC = () => {
         height: 500,
         borderRadius: '50%',
         background: mode === 'light'
-          ? 'radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(45,212,191,0.08) 0%, transparent 70%)',
+          ? 'radial-gradient(circle, rgba(46,49,146,0.12) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)',
         top: -150,
         right: -100,
       },
@@ -95,8 +95,8 @@ export const Login: React.FC = () => {
         height: 400,
         borderRadius: '50%',
         background: mode === 'light'
-          ? 'radial-gradient(circle, rgba(217,119,6,0.1) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(251,191,36,0.06) 0%, transparent 70%)',
+          ? 'radial-gradient(circle, rgba(18,155,99,0.08) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(34,211,125,0.06) 0%, transparent 70%)',
         bottom: -100,
         left: -100,
       }
@@ -107,33 +107,27 @@ export const Login: React.FC = () => {
         position: 'relative',
         zIndex: 1,
         backdropFilter: 'blur(20px)',
-        backgroundColor: mode === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(7,23,39,0.85)',
-        border: `1px solid ${mode === 'light' ? 'rgba(13,148,136,0.2)' : 'rgba(45,212,191,0.12)'}`,
+        backgroundColor: mode === 'light' ? 'rgba(255,255,255,0.92)' : 'rgba(17,24,39,0.85)',
+        border: `1px solid ${mode === 'light' ? 'rgba(46,49,146,0.15)' : 'rgba(99,102,241,0.15)'}`,
         boxShadow: mode === 'light'
-          ? '0 25px 50px -12px rgba(13,148,136,0.2)'
+          ? '0 25px 50px -12px rgba(46,49,146,0.18)'
           : '0 25px 60px -12px rgba(0,0,0,0.8)',
         overflow: 'visible',
       }}>
         {/* Top accent bar */}
         <Box sx={{
           height: 4,
-          background: 'linear-gradient(90deg, #0D9488 0%, #14B8A6 50%, #D97706 100%)',
+          background: 'linear-gradient(90deg, #2E3192 0%, #129B63 100%)',
           borderRadius: '14px 14px 0 0',
         }} />
 
         <CardContent sx={{ p: 4 }}>
-          {/* Logo */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
-            <Avatar sx={{
-              width: 64, height: 64, mb: 2,
-              background: 'linear-gradient(135deg, #0D9488 0%, #14B8A6 100%)',
-              boxShadow: mode === 'light'
-                ? '0 8px 24px rgba(13,148,136,0.35)'
-                : '0 8px 24px rgba(45,212,191,0.3)',
-            }}>
-              <ShieldCheck size={30} color="#ffffff" />
-            </Avatar>
-            <Typography variant="h5" sx={{ fontWeight: 800, letterSpacing: -0.5, mb: 0.5 }}>
+          {/* Logo Centerpiece */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
+            <Box sx={{ width: 140, height: 140, mb: 1, mt: -1 }}>
+              <FamilyLogo size={140} variant="full" />
+            </Box>
+            <Typography variant="h5" sx={{ fontWeight: 800, letterSpacing: -0.5, mb: 0.5, mt: 1 }}>
               Admin Portal
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
@@ -201,8 +195,8 @@ export const Login: React.FC = () => {
                   fontWeight: 800,
                   borderRadius: 2,
                   boxShadow: mode === 'light'
-                    ? '0 8px 24px rgba(13,148,136,0.35)'
-                    : '0 8px 24px rgba(45,212,191,0.25)',
+                    ? '0 8px 24px rgba(46,49,146,0.25)'
+                    : '0 8px 24px rgba(99,102,241,0.25)',
                 }}
               >
                 {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In to Dashboard'}

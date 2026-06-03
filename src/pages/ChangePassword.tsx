@@ -69,14 +69,14 @@ export const ChangePassword: React.FC = () => {
         <Grid size={{ xs: 12, md: 7 }}>
           <Card>
             {/* Top accent */}
-            <Box sx={{ height: 3, background: 'linear-gradient(90deg, #0D9488, #14B8A6, #D97706)' }} />
+            <Box sx={{ height: 3, background: 'linear-gradient(90deg, #2E3192 0%, #129B63 100%)' }} />
             <CardContent sx={{ p: 4 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3.5 }}>
                 <Avatar sx={{
-                  bgcolor: mode === 'light' ? 'rgba(13,148,136,0.1)' : 'rgba(45,212,191,0.12)',
+                  bgcolor: mode === 'light' ? 'rgba(46,49,146,0.08)' : 'rgba(99,102,241,0.15)',
                   width: 46, height: 46
                 }}>
-                  <ShieldCheck size={22} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />
+                  <ShieldCheck size={22} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />
                 </Avatar>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
@@ -122,7 +122,7 @@ export const ChangePassword: React.FC = () => {
                       input: {
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Key size={17} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />
+                            <Key size={17} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />
                           </InputAdornment>
                         ),
                         endAdornment: (
@@ -151,7 +151,7 @@ export const ChangePassword: React.FC = () => {
                       input: {
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Key size={17} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />
+                            <Key size={17} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />
                           </InputAdornment>
                         ),
                         endAdornment: (
@@ -185,14 +185,14 @@ export const ChangePassword: React.FC = () => {
           <Card sx={{
             height: '100%',
             background: mode === 'light'
-              ? 'linear-gradient(135deg, #F0FDFC 0%, #CCFBF1 100%)'
-              : 'linear-gradient(135deg, #071727 0%, #0A1F30 100%)',
-            border: `1px solid ${mode === 'light' ? '#99F6E4' : '#0D2D40'}`,
+              ? 'linear-gradient(135deg, #FFFFFF 0%, #F5F7FB 100%)'
+              : 'linear-gradient(135deg, #111827 0%, #0B0F19 100%)',
+            border: `1px solid ${mode === 'light' ? '#E2E8F0' : '#1F2937'}`,
           }}>
             <CardContent sx={{ p: 3.5 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-                <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(13,148,136,0.15)' : 'rgba(45,212,191,0.15)', width: 40, height: 40 }}>
-                  <Info size={18} style={{ color: mode === 'light' ? '#0D9488' : '#2DD4BF' }} />
+                <Avatar sx={{ bgcolor: mode === 'light' ? 'rgba(46,49,146,0.12)' : 'rgba(99,102,241,0.18)', width: 40, height: 40 }}>
+                  <Info size={18} style={{ color: mode === 'light' ? '#2E3192' : '#6366F1' }} />
                 </Avatar>
                 <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
                   Password Policy
@@ -205,10 +205,10 @@ export const ChangePassword: React.FC = () => {
                     <Box sx={{
                       width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
                       background: mode === 'light'
-                        ? 'linear-gradient(135deg, #0D9488, #14B8A6)'
-                        : 'linear-gradient(135deg, #2DD4BF, #0D9488)',
+                        ? 'linear-gradient(135deg, #2E3192, #1B1C63)'
+                        : 'linear-gradient(135deg, #6366F1, #4F46E5)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '0.7rem', fontWeight: 800, color: mode === 'light' ? '#fff' : '#040D18',
+                      fontSize: '0.7rem', fontWeight: 800, color: '#ffffff',
                     }}>
                       {i + 1}
                     </Box>
