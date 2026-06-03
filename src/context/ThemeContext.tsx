@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeModeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mode, setMode] = useState<ThemeMode>(() => {
     const saved = localStorage.getItem('admin-panel-theme');
-    return (saved as ThemeMode) || 'dark';
+    return (saved as ThemeMode) || 'light';
   });
 
   useEffect(() => {

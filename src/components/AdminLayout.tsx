@@ -22,6 +22,9 @@ const COLLAPSED_WIDTH = 72;
 export const AdminLayout: React.FC = () => {
   const { mode, toggleTheme } = useThemeMode();
   const { logout, user } = useAuth();
+  
+  const adminName = user?.firstName ? `${user.firstName.trim()} ${user.lastName?.trim() || ''}`.trim() : 'Administrator';
+  const initials = user?.firstName ? `${user.firstName.trim().charAt(0).toUpperCase()}${user.lastName?.trim() ? user.lastName.trim().charAt(0).toUpperCase() : ''}` : 'AD';
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -154,11 +157,13 @@ export const AdminLayout: React.FC = () => {
           bgcolor: mode === 'light' ? 'rgba(46,49,146,0.12)' : 'rgba(99,102,241,0.18)',
           color: 'primary.main', width: 36, height: 36, fontWeight: 800, fontSize: '0.8rem'
         }}>
-          AD
+          {initials}
         </Avatar>
         {(!collapsed || isMobile) && (
           <Box sx={{ minWidth: 0, flexGrow: 1 }}>
-            <Typography variant='caption' sx={{ fontWeight: 700, display: 'block', color: 'text.primary' }}>Administrator</Typography>
+            <Typography variant='caption' sx={{ fontWeight: 700, display: 'block', color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {adminName}
+            </Typography>
             <Typography variant='caption' sx={{ display: 'block', color: 'text.secondary', fontSize: '0.72rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user?.phoneNumber}
             </Typography>

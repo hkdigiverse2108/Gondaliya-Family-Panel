@@ -4,6 +4,8 @@ interface User {
   _id: string;
   phoneNumber: string;
   role: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 interface AuthContextType {

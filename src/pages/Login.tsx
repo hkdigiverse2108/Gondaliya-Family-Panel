@@ -34,7 +34,7 @@ export const Login: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await api.post('/auth/login', { phoneNumber, password });
+      const response = await api.post('/auth/login', { phoneNumber, password, role: 'admin' });
       const responseData = response.data;
       const isSuccess =
         responseData &&
@@ -46,11 +46,13 @@ export const Login: React.FC = () => {
         const role   = dataPayload.role   || responseData.role;
         const _id    = dataPayload._id    || responseData._id;
         const phone  = dataPayload.phoneNumber || phoneNumber;
+        const firstName = dataPayload.firstName || '';
+        const lastName = dataPayload.lastName || '';
 
         if (!token) { toast.error('Login response missing token.'); setLoading(false); return; }
         if (role !== 'admin') { toast.error('Access Denied: Only administrators can log in!'); setLoading(false); return; }
 
-        login(token, { _id, phoneNumber: phone, role });
+        login(token, { _id, phoneNumber: phone, role, firstName, lastName });
         toast.success('Welcome back, Administrator!');
         navigate('/');
       } else {
